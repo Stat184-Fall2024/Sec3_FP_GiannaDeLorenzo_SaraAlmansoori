@@ -1,0 +1,56 @@
+---
+title: "Project Report"
+author: "Gianna DeLorenzo & Sara Almansoori"
+date: "`r Sys.Date()`"
+format: pdf
+editor: visual
+bibliography: references.bib  
+csl: apa.csl  
+appendix: true
+---
+
+# Introduction
+
+Education is the foundation of many countries worldwide. It is a fundamental right to have access to these tools. Over the past decade, global and regional efforts have been focusing on improving individuals' access to education, more specifically secondary education, addressing socio-economic disparities and integrating online learning tools; however, issues still arise within these efforts in providing equal education and access for all individuals. It is a social issue that affects everyone, whether indirectly or directly, and presents unequal treatment towards individuals' with less access to the same tools based on their regions and/or class levels. 
+
+In this report, we will be investigating the following research questions: 
+1. What are the global and regional trends in secondary schools enrollment rates over the past 10 years? 
+
+This research question explores patterns globally and regionally in terms of access to education. It focuses on the enrollment rates of adolescents of secondary school age. 
+
+2. How do socio-economic factors correlate with individuals' access to quality education and development? 
+
+This research question explores the patterns associated with socio-economic factors, and how they are connected with access to quality education and development. It goes into depth about which socio-economic factors impact this access the most and 
+
+3. How does individuals' access to online learning tools differentiate according to the region and class levels, and what impact does this have on learning? 
+
+We will first present the provenance of the data. Then, how it aligns with the FAIR and/or CARE principles. Then we will present the methodology of the data and the analysis attributes. After, we will explore the data visualizations and the results. Finally, we will close up the report with a discussion of our findings.
+
+## Provenance
+
+We obtained the data from UNICEF which is the United Nations Children's Fund. It is a UN agency that is responsible for providing assistance to children worldwide pertaining humanitarian and developmental factors.
+
+## FAIR and/or CARE Principles
+
+# Methodology
+
+## Analysis Attributes
+
+# Data Exploration
+
+## Visualization 1
+
+
+
+## Visualization 2
+
+## Visualization 3
+
+# Results
+
+# Conclusion 
+
+# References
+
+
+
