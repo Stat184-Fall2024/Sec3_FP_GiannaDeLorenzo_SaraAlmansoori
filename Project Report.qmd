@@ -9,7 +9,12 @@ csl: apa7.csl
 
 # Introduction
 
-Education is the foundation of many countries worldwide. It is a fundamental right to have access to these tools. Over the past decade, global and regional efforts have been focusing on improving individuals' access to education, more specifically secondary education, addressing socio-economic disparities and integrating online learning tools; however, issues still arise within these efforts in providing equal education and access for all individuals. It is a social issue that affects everyone, whether indirectly or directly, and presents unequal treatment towards individuals' with less access to the same tools based on their regions and/or class levels. 
+Education is the foundation of many countries worldwide. It is a fundamental right to have access to these tools. 
+Over the past decade, global and regional efforts have been focusing on improving individuals' access to education, 
+more specifically secondary education, addressing socio-economic disparities and integrating online learning tools; 
+however, issues still arise within these efforts in providing equal education and access for all individuals. It is a 
+social issue that affects everyone, whether indirectly or directly, and presents unequal treatment towards individuals' 
+with less access to the same tools based on their regions and/or class levels. 
 
 In this report, we will be investigating the following research questions: 
 1. What are the global and regional trends in secondary schools enrollment rates over the past 10 years? 
