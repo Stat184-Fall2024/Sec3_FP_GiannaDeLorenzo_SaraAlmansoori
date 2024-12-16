@@ -9,29 +9,45 @@ csl: apa7.csl
 
 # Introduction
 
-Education is the foundation of many countries worldwide. It is a fundamental right to have access to these tools. Over the past decade, global and regional efforts have been focusing on improving individuals' access to education, more specifically secondary education, addressing socio-economic disparities and integrating online learning tools; however, issues still arise within these efforts in providing equal education and access for all individuals. It is a social issue that affects everyone, whether indirectly or directly, and presents unequal treatment towards individuals' with less access to the same tools based on their regions and/or class levels.
+Education is the foundation of many countries worldwide. It is a fundamental right to have access to these tools. Over the past decade, 
+global and regional efforts have been focusing on improving individuals' access to education, more specifically secondary education, 
+addressing socio-economic disparities and integrating online learning tools; however, issues still arise within these efforts in providing 
+equal education and access for all individuals. It is a social issue that affects everyone, whether indirectly or directly, and presents 
+unequal treatment towards individuals' with less access to the same tools based on their regions and/or class levels.
 
-In this report, we will be investigating the following research questions: 1. What are the global and regional trends in secondary schools enrollment rates over the past 10 years?
+In this report, we will be investigating the following research questions: 1. What are the global and regional trends in secondary schools 
+enrollment rates over the past 10 years?
 
-This research question explores patterns globally and regionally in terms of access to education. It focuses on the enrollment rates of adolescents of secondary school age.
+This research question explores patterns globally and regionally in terms of access to education. It focuses on the enrollment rates of 
+adolescents of secondary school age.
 
 2.  How do socio-economic factors correlate with individuals' access to quality education and development?
 
-This research question explores the patterns associated with socio-economic factors, and how they are connected with access to quality education and development. It goes into depth about which socio-economic factors impact this access the most and
+This research question explores the patterns associated with socio-economic factors, and how they are connected with access to quality 
+education and development. It goes into depth about which socio-economic factors impact this access the most and
 
-3.  How does individuals' access to online learning tools differentiate according to the region and class levels, and what impact does this have on learning?
+3.  How does individuals' access to online learning tools differentiate according to the region and class levels, and what impact does this 
+have on learning?
 
-We will first present the provenance of the data. Then, how it aligns with the FAIR and/or CARE principles. Then we will present the methodology of the data and the analysis attributes. After, we will explore the data visualizations and the results. Finally, we will close up the report with a discussion of our findings.
+We will first present the provenance of the data. Then, how it aligns with the FAIR and/or CARE principles. Then we will present the 
+methodology of the data and the analysis attributes. After, we will explore the data visualizations and the results. Finally, we will close 
+up the report with a discussion of our findings.
 
 ## Provenance
 
-The dataset used for this analysis, the 'Learning and Skills' dataset from UNICEF, explores the global educational indicators ranging from 2016 to 2023. The indicators integrated include the percentage of children of lower secondary school age attending lower secondary school or higher, the percentage of children of upper secondary school age attending upper secondary school or higher
+The dataset used for this analysis, the 'Learning and Skills' dataset from UNICEF, explores the global educational indicators ranging from 
+2016 to 2023. The indicators integrated include the percentage of children of lower secondary school age attending lower secondary school 
+or higher, the percentage of children of upper secondary school age attending upper secondary school or higher
 
-We obtained the data from UNICEF which is the United Nations Children's Fund. It is a UN agency that is responsible for providing assistance to children worldwide pertaining humanitarian and developmental factors.
+We obtained the data from UNICEF which is the United Nations Children's Fund. It is a UN agency that is responsible for providing 
+assistance to children worldwide pertaining humanitarian and developmental factors.
 
 ## FAIR and/or CARE Principles
 
-The dataset and analysis will adhere to the FAIR (Findable, Accessible, Interoperable, Reusable) principles to ensure transparency and reproducibility. Data sources and workflows will be documented and made available in open formats to facilitate future research. Additionally, the CARE (Collective benefit, Authority to control, Responsibility, Ethics) principles will guide the ethical use of data, particularly in ensuring respect for community rights and promoting equity in the dissemination of insights.
+The dataset and analysis will adhere to the FAIR (Findable, Accessible, Interoperable, Reusable) principles to ensure transparency and 
+reproducibility. Data sources and workflows will be documented and made available in open formats to facilitate future research. 
+Additionally, the CARE (Collective benefit, Authority to control, Responsibility, Ethics) principles will guide the ethical use of data, 
+particularly in ensuring respect for community rights and promoting equity in the dissemination of insights.
 
 # Methodology
 
@@ -53,9 +69,12 @@ Digital Access: Availability and impact of digital learning tools.
 
 ## Exploratory Data Analysis
 
-As we explore the structure of the UNICEF 'Learning and Skills' Dataset, the focus is on the patterns within the dataset, relationships between variables, and significant connections to our research questions. Our goals include examining the trends globally and regionally, identifying how these trends vary according to gender, and handling the null values to ensure the consistency of the data. 
+As we explore the structure of the UNICEF 'Learning and Skills' Dataset, the focus is on the patterns within the dataset, relationships 
+between variables, and significant connections to our research questions. Our goals include examining the trends globally and regionally, 
+identifying how these trends vary according to gender, and handling the null values to ensure the consistency of the data. 
 
-Here is a summary table that provides an overview of the observation values in the dataset according to the geographic region. The table includes the mean, minimum, median, maximum, and count for the observation values while removing null values.
+Here is a summary table that provides an overview of the observation values in the dataset according to the geographic region. The table 
+includes the mean, minimum, median, maximum, and count for the observation values while removing null values.
 
 ```{r}
 
@@ -139,7 +158,8 @@ ggplot(filtered_unicef_data,
 
 # Conclusion
 
-This research aims to provide evidence-based insights into the factors influencing global education and skill acquisition. By highlighting trends, disparities, and socio-economic relationships, the study will contribute to the discourse on equitable access to education. 
+This research aims to provide evidence-based insights into the factors influencing global education and skill acquisition. By highlighting 
+trends, disparities, and socio-economic relationships, the study will contribute to the discourse on equitable access to education. 
 
 # References
 
