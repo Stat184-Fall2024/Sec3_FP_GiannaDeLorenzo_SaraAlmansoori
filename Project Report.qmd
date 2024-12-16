@@ -51,6 +51,16 @@ The dataset and analysis will adhere to the FAIR (Findable, Accessible, Interope
 
 ## Analysis Attributes
 
+Temporal Trends: Changes in education metrics over time.
+
+Regional Disparities: Variations across geographic regions.
+
+Gender Disparities: Differences in metrics by gender.
+
+Socio-Economic Correlations: Relationships between education metrics and socio-economic factors.
+
+Digital Access: Availability and impact of digital learning tools.
+
 # Data Exploration
 
 ## Visualization 1
