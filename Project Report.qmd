@@ -45,6 +45,7 @@ We obtained the data from UNICEF which is the United Nations Children's Fund. It
 assistance to children worldwide pertaining humanitarian and developmental factors.
 
 ## FAIR and/or CARE Principles
+The dataset and analysis will adhere to the FAIR (Findable, Accessible, Interoperable, Reusable) principles to ensure transparency and reproducibility. Data sources and workflows will be documented and made available in open formats to facilitate future research. Additionally, the CARE (Collective benefit, Authority to control, Responsibility, Ethics) principles will guide the ethical use of data, particularly in ensuring respect for community rights and promoting equity in the dissemination of insights.
 
 # Methodology
 
@@ -124,7 +125,7 @@ unicef_plot
 # Results
 
 # Conclusion 
-
+This research aims to provide evidence-based insights into the factors influencing global education and skill acquisition. By highlighting trends, disparities, and socio-economic relationships, the study will contribute to the discourse on equitable access to education.
 # References
 
 # Code Appendix
