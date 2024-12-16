@@ -216,7 +216,9 @@ ggplot(filtered_data, aes(x = Year,
 
 # Conclusion
 
-This research aims to provide evidence-based insights into the factors influencing global education and skill acquisition. By highlighting trends, disparities, and socio-economic relationships, the study will contribute to the discourse on equitable access to education.
+This research aims to provide evidence-based insights into the factors influencing global education and skill 
+acquisition. By highlighting trends, disparities, and socio-economic relationships, the study will contribute to the 
+discourse on equitable access to education.
 
 # References
 
