@@ -37,29 +37,29 @@ The dataset used for this analysis, the 'Learning and Skills' dataset from UNICE
 
 We obtained the data from UNICEF which is the United Nations Children's Fund. It is a UN agency that is responsible for providing assistance to children worldwide pertaining humanitarian and developmental factors.
 
-**Source**: [UNICEF Data Explorer](https://data.unicef.org/topic/child-health/mental-health/).
+**Source**: [UNICEF Data](https://data.unicef.org/topic/child-health/mental-health/).
 
 ### FAIR and CARE Principles
 
 The dataset and analysis will adhere to the FAIR (Findable, Accessible, Interoperable, Reusable) principles to ensure transparency and reproducibility. Data sources and workflows will be documented and made available in open formats to facilitate future research. Additionally, the CARE (Collective benefit, Authority to control, Responsibility, Ethics) principles will guide the ethical use of data, particularly in ensuring respect for community rights and promoting equity in the dissemination of insights.
 
-**Findability**: The 'Learning and Skills' dataset can be accessed easily on the UNICEF Data explorer website under 'Datasets'.
+- **Findability**: The 'Learning and Skills' dataset can be accessed easily on the UNICEF Data explorer website under 'Datasets'.
 
-URL is https://data.unicef.org/resources/data_explorer/unicef_f/?ag=UNICEF&df=GLOBAL_DATAFLOW&ver=1.0&dq=.ED_ANAR_L3+ED_ANAR_L2+ED_ROFST_L3+ED_CR_L2+ED_CR_L3+ED_ROFST_L2..&startPeriod=2016&endPeriod=2023
+**URL**: [UNICEF Data](https://data.unicef.org/resources/data_explorer/unicef_f/?ag=UNICEF&df=GLOBAL_DATAFLOW&ver=1.0&dq=.ED_ANAR_L3+ED_ANAR_L2+ED_ROFST_L3+ED_CR_L2+ED_CR_L3+ED_ROFST_L2..&startPeriod=2016&endPeriod=2023)
 
-**Accessibility**: The 'Learning and Skills' dataset is publicly available as a CSV file and an Excel file.
+- **Accessibility**: The 'Learning and Skills' dataset is publicly available as a CSV file and an Excel file.
 
-**Interoperability**: The 'Learning and Skills' dataset uses general formatting techniques and naming which makes it comparable using data analysis tools.
+- **Interoperability**: The 'Learning and Skills' dataset uses general formatting techniques and naming which makes it comparable using data analysis tools.
 
-**Reusability**: The 'Learning and Skills' dataset provides enough references and documented resources for similar research.
+- **Reusability**: The 'Learning and Skills' dataset provides enough references and documented resources for similar research.
 
-**Collective benefit**: Insights from the 'Learning and Skills' dataset are shared for improvement purposes.
+- **Collective benefit**: Insights from the 'Learning and Skills' dataset are shared for improvement purposes.
 
-**Authority to Control**: The 'Learning and Skills' dataset remains respectable for global and regional educational goals.
+- **Authority to Control**: The 'Learning and Skills' dataset remains respectable for global and regional educational goals.
 
-**Responsibility**: The analysis of the 'Learning and Skills' dataset is conducted ethically and does not use the dataset and sensitive data for unethical reasons.
+- **Responsibility**: The analysis of the 'Learning and Skills' dataset is conducted ethically and does not use the dataset and sensitive data for unethical reasons.
 
-**Ethics**: This research on the 'Learning and Skills' dataset focuses on equality to benefit communities who are at a disadvantage.
+- **Ethics**: This research on the 'Learning and Skills' dataset focuses on equality to benefit communities who are at a disadvantage.
 
 # Methodology
 
