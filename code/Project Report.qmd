@@ -133,7 +133,7 @@ knitr::kable(
 
 Furthermore, the completion rates of adolescents were one of the indicators that stood out to us. Here is a boxplot that displays the top 10 regions by the average completion rates ranging from the best to the worst regions.
 
-```{r}
+```{r, , echo = false, message = false, warning = false}
 #| label: load-packages
 #| include: false
 #| echo: false
@@ -187,7 +187,7 @@ On the other hand, regions such as North Macedonia and Chile have the lowest com
 
 ### Net Attendance Rates
 
-```{r}
+```{r , echo = false, message = false, warning = false}
 #| label: load-packages
 #| include: false
 #| echo: false
@@ -233,7 +233,7 @@ ggplot(filtered_data, aes(x = Year,
 
 ### Out of School Rates
 
-```{r}
+```{r, echo = false, message = false, warning = false}
 
 # Load necessary libraries
 library(dplyr)
