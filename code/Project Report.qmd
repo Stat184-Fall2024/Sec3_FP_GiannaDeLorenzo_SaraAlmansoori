@@ -35,25 +35,29 @@ The dataset used for this analysis, the 'Learning and Skills' dataset from UNICE
 
 We obtained the data from UNICEF which is the United Nations Children's Fund. It is a UN agency that is responsible for providing assistance to children worldwide pertaining humanitarian and developmental factors.
 
+**Source**: [UNICEF Data Explorer](https://data.unicef.org/topic/child-health/mental-health/).
+
 ### FAIR and CARE Principles
 
 The dataset and analysis will adhere to the FAIR (Findable, Accessible, Interoperable, Reusable) principles to ensure transparency and reproducibility. Data sources and workflows will be documented and made available in open formats to facilitate future research. Additionally, the CARE (Collective benefit, Authority to control, Responsibility, Ethics) principles will guide the ethical use of data, particularly in ensuring respect for community rights and promoting equity in the dissemination of insights.
 
-**Findability**
+**Findability**: The 'Learning and Skills' dataset can be accessed easily on the UNICEF Data explorer website under 'Datasets'.
 
-**Accessibility**
+URL is https://data.unicef.org/resources/data_explorer/unicef_f/?ag=UNICEF&df=GLOBAL_DATAFLOW&ver=1.0&dq=.ED_ANAR_L3+ED_ANAR_L2+ED_ROFST_L3+ED_CR_L2+ED_CR_L3+ED_ROFST_L2..&startPeriod=2016&endPeriod=2023
 
-**Interoperability**
+**Accessibility**: The 'Learning and Skills' dataset is publicly available as a CSV file and an Excel file.
 
-**Reusability**
+**Interoperability**: The 'Learning and Skills' dataset uses general formatting techniques and naming which makes it comparable using data analysis tools.
 
-**Collective benefit**
+**Reusability**: The 'Learning and Skills' dataset provides enough references and documented resources for similar research.
 
-**Authority to Control**
+**Collective benefit**: Insights from the 'Learning and Skills' dataset are shared for improvement purposes.
 
-**Responsibility**
+**Authority to Control**: The 'Learning and Skills' dataset remains respectable for global and regional educational goals.
 
-**Ethics**
+**Responsibility**: The analysis of the 'Learning and Skills' dataset is conducted ethically and does not use the dataset and sensitive data for unethical reasons.
+
+**Ethics**: This research on the 'Learning and Skills' dataset focuses on equality to benefit communities who are at a disadvantage.
 
 # Methodology
 
@@ -63,17 +67,25 @@ As we mentioned prior, we filtered the 'Learning and Skills' dataset to focus on
 
 This also provided us with a smaller sized dataset to work with. The original 'Learning and Skills' dataset was large and difficult to create visualizations with. It was also easier to analyze and discover readable trends from the sample dataset shown on the UNICEF website. We could come up with filters to integrate into the data visualizations and figure out which columns were the most essential to add in order to create a visualization that is best-suited to explain our research questions.
 
+We found that it was necessary to filter **missing** and **null** values in the dataset. It was also found necessary to convert selected columns to numeric types including \*\*
+
+Overall, we put our focus on the following:
+
+-   **Global and Regional Enrollment Trends**
+-   **Completion Rates**
+-   **The Effects of Socio-Economic Factors and Digital Tools**
+
 ## Analysis Attributes
 
-Temporal Trends: Changes in education metrics over time.
+**Temporal Trends**: Changes in education metrics over time.
 
-Regional Disparities: Variations across geographic regions.
+**Regional Disparities**: Variations across geographic regions.
 
-Gender Disparities: Differences in metrics by gender.
+**Gender Disparities**: Differences in metrics by gender.
 
-Socio-Economic Correlations: Relationships between education metrics and socio-economic factors.
+**Socio-Economic Correlations**: Relationships between education metrics and socio-economic factors.
 
-Digital Access: Availability and impact of digital learning tools.
+**Digital Access**: Availability and impact of digital learning tools.
 
 # Data Exploration
 
@@ -84,13 +96,16 @@ As we explore the structure of the UNICEF 'Learning and Skills' Dataset, the foc
 Here is a summary table that provides an overview of the observation values in the dataset according to the geographic region. The table includes the mean, minimum, median, maximum, and count for the observation values while removing null values.
 
 ```{r}
+#| label: load-packages
+#| include: false
+#| echo: false
 
 #Load necessary libraries
 library(dplyr)
 library(kableExtra)
 
 #Import UNICEF csv file
-unicef_data <- read.csv("UNICEF Dataset.csv")
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
 
 #Summary Statistics
 unicef_summary_table <- unicef_data %>%
@@ -104,13 +119,12 @@ unicef_summary_table <- unicef_data %>%
   )
 
 #Format the Summary Statistics in a Table using Kable Styling
-unicef_summary_table %>%
-  kable(format = 'html',
-        caption = 'Global Dataflow UNICEF',
-        col.names = c('Geographic Area', 'Mean', 'Minimum', 
-                      'Median', 'Maximum', 'Count')
-        ) %>%
-  kable_styling(full_width = FALSE)
+knitr::kable(
+  unicef_summary_table, 
+  format = "latex", 
+  caption = "Global Dataflow UNICEF", 
+  col.names = c('Geographic Area', 'Mean', 'Minimum', 'Median', 'Maximum', 'Count')
+)
 
 ```
 
@@ -123,7 +137,7 @@ library(dplyr)
 library(ggplot2)
 
 # Import UNICEF csv file
-unicef_data <- read.csv("UNICEF Dataset.csv")
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
 
 # Filtered data for Completion Rate Indicator
 filtered_unicef_data <- unicef_data %>%
@@ -165,8 +179,6 @@ From this boxplot, it can be seen that the Democratic People's Republic of Korea
 
 On the other hand, regions such as North Macedonia and Chile have the lowest completion rates.
 
-## Visualization 1
-
 ```{r}
 
 # Load necessary libraries
@@ -175,7 +187,7 @@ library(ggplot2)
 library(kableExtra)
 
 # Import UNICEF csv file
-unicef_data <- read.csv("UNICEF Dataset.csv")
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
 
 # Filter for lower secondary school with adolescents
 filtered_data <- unicef_data %>%
