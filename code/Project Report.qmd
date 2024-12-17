@@ -99,7 +99,7 @@ As we explore the structure of the UNICEF 'Learning and Skills' Dataset, the foc
 
 Here is a summary table that provides an overview of the observation values in the dataset according to the geographic region. The table includes the mean, minimum, median, maximum, and count for the observation values while removing null values.
 
-```{r, echo: false}
+```{r, echo= false}
 #| label: load-packages
 #| include: false
 #| echo: false
