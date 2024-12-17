@@ -11,6 +11,8 @@ csl: apa7.csl
 
 Education is the foundation of many countries worldwide. It is a fundamental right to have access to these tools. Over the past decade, global and regional efforts have been focusing on improving individuals' access to education, more specifically secondary education, addressing socio-economic disparities and integrating online learning tools; however, issues still arise within these efforts in providing equal education and access for all individuals. It is a social issue that affects everyone, whether indirectly or directly, and presents unequal treatment towards individuals' with less access to the same tools based on their regions and/or class levels.
 
+**Research Questions**
+
 In this report, we will be investigating the following research questions:
 
 1.  What are the global and regional trends in secondary schools enrollment rates over the past 10 years?
@@ -67,7 +69,7 @@ As we mentioned prior, we filtered the 'Learning and Skills' dataset to focus on
 
 This also provided us with a smaller sized dataset to work with. The original 'Learning and Skills' dataset was large and difficult to create visualizations with. It was also easier to analyze and discover readable trends from the sample dataset shown on the UNICEF website. We could come up with filters to integrate into the data visualizations and figure out which columns were the most essential to add in order to create a visualization that is best-suited to explain our research questions.
 
-We found that it was necessary to filter **missing** and **null** values in the dataset. It was also found necessary to convert selected columns to numeric types including \*\*
+We found that it was necessary to filter **missing** and **null** values in the dataset. It was also found necessary to convert selected columns to numeric types which includes the Observation Values.
 
 Overall, we put our focus on the following:
 
@@ -92,6 +94,8 @@ Overall, we put our focus on the following:
 ## Exploratory Data Analysis
 
 As we explore the structure of the UNICEF 'Learning and Skills' Dataset, the focus is on the patterns within the dataset, relationships between variables, and significant connections to our research questions. Our goals include examining the trends globally and regionally, identifying how these trends vary according to gender, and handling the null values to ensure the consistency of the data.
+
+### Summary Statistics
 
 Here is a summary table that provides an overview of the observation values in the dataset according to the geographic region. The table includes the mean, minimum, median, maximum, and count for the observation values while removing null values.
 
@@ -128,9 +132,14 @@ knitr::kable(
 
 ```
 
-Furthermore, the completion rates of adolescents were one of the indicators that stood out to us. Here is a generalized boxplot that displays the completion rate according to ...
+### Completion Rates
+
+Furthermore, the completion rates of adolescents were one of the indicators that stood out to us. Here is a boxplot that displays the top 10 regions by the average completion rates ranging from the best to the worst regions.
 
 ```{r}
+#| label: load-packages
+#| include: false
+#| echo: false
 
 # Load necessary libraries
 library(dplyr)
@@ -175,11 +184,16 @@ ggplot(top_ten_filtered_data,
 
 ```
 
-From this boxplot, it can be seen that the Democratic People's Republic of Korea is the top region with the highest average of completion rates in adolescents. The boxplot for this region is very close to 100% average completion rates. The small size of this boxplot also represents the minor variability in this average statistic value for this region, meaning that almost all individuals' complete upper secondary education.
+From this box-plot, it can be seen that the Democratic People's Republic of Korea is the top region with the highest average of completion rates in adolescents. The box-plot for this region is very close to 100% average completion rates. The small size of this box-plot also represents the minor variability in this average statistic value for this region, meaning that almost all individuals' complete upper secondary education.
 
-On the other hand, regions such as North Macedonia and Chile have the lowest completion rates.
+On the other hand, regions such as North Macedonia and Chile have the lowest completion rates. Their large sizes indicate a major variability in the averages for these regions meaning ...
+
+### Net Attendance Rates
 
 ```{r}
+#| label: load-packages
+#| include: false
+#| echo: false
 
 # Load necessary libraries
 library(dplyr)
@@ -200,7 +214,7 @@ filtered_data <- unicef_data %>%
     Region = REF_AREA.Geographic.area)
 
 
-
+# Create the Line Plot
 ggplot(filtered_data, aes(x = Year, 
                           y = Enrollment_Rate, 
                           color = Region)) +
@@ -220,11 +234,50 @@ ggplot(filtered_data, aes(x = Year,
 
 ```
 
-## Visualization 2
+### Out of School Rates
 
-## Visualization 3
+```{r}
+
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+
+# Import UNICEF csv file
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
+
+# Filter based on 
+filtered_unicef_data <- unicef_data %>%
+  filter(INDICATOR.Indicator == "ED_ROFST_L2: Out-of-school rate for adolescents of lower secondary school age",
+         !is.na(OBS_VALUE.Observation.Value)) %>%
+  
+  mutate(
+    Year = as.numeric(TIME_PERIOD.Time.period),
+    Out_of_School_Rate = as.numeric(OBS_VALUE.Observation.Value)
+  )
+
+# Create the Bar Plot
+ggplot(filtered_unicef_data, aes(x = REF_AREA.Geographic.area, 
+                                 y = Out_of_School_Rate, 
+                                 fill = SEX.Sex)) +
+  
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Out-of-School Rates sorted by Region and Gender",
+    x = "Region",
+    y = "Out-of-School Rate Percentage",
+    fill = "Gender"
+  ) +
+  theme_minimal() +
+  coord_flip()
+```
 
 # Results
+
+## Assumptions
+
+## Boot Strapping Ratio
+
+# Discussion
 
 # Conclusion
 
