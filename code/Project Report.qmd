@@ -15,17 +15,17 @@ Education is the foundation of many countries worldwide. It is a fundamental rig
 
 In this report, we will be investigating the following research questions:
 
-1.  What are the global and regional trends in secondary schools enrollment rates over the past 10 years?
+**1. What are the global and regional trends in secondary schools enrollment rates over the past 10 years?**
 
 This research question explores patterns globally and regionally in terms of access to education. It focuses on the enrollment rates of adolescents of secondary school age.
 
-2.  How do socio-economic factors correlate with individuals' access to quality education and development?
+**2. How do socio-economic factors correlate with individuals' access to quality education and development?**
 
 This research question explores the patterns associated with socio-economic factors, and how they are connected with access to quality education and development. It goes into depth about which socio-economic factors impact this access the most and
 
-3.  How do gender disparities affect individuals' access to secondary education, and in what ways have these disparities changed over the course of 10 years ranging across different regions?
+**3. How do gender disparities affect individuals' access to secondary education, and in what ways have these disparities changed over the course of 10 years ranging across different regions?**
 
-This research question explores the effects of gender disparities in secondary education. It is an important question to implement in our research because it can bring potential patterns in these disparities and can give a comparison between enrollment rates and completion rates in schooling. 
+This research question explores the effects of gender disparities in secondary education. It is an important question to implement in our research because it can bring potential patterns in these disparities and can give a comparison between enrollment rates and completion rates in schooling.
 
 We will first present the provenance of the data. Then, how it aligns with the FAIR and/or CARE principles. Then we will present the methodology of the data and the analysis attributes. After, we will explore the data visualizations and the results. Finally, we will close up the report with a discussion of our findings.
 
@@ -183,9 +183,9 @@ ggplot(top_ten_filtered_data,
 
 ```
 
-From this box-plot, it can be seen that the Democratic People's Republic of Korea is the top region with the highest average of completion rates in adolescents. The box-plot for this region is very close to 100% average completion rates. The small size of this box-plot also represents the minor variability in this average statistic value for this region, meaning that almost all individuals' complete upper secondary education. For all regions, the range stays between around 80% - 100% for completion rate percentages. Each individual box-plot for the region represents the quartile range going from 25th percentiles to 75th percentiles. The line in each boxplot represents the median and the whiskers (the lines connected to each side of the box) represent the minimum and maximum values. According to how this boxplot outputted, there are no outliers from this data. 
+From this box-plot, it can be seen that the Democratic People's Republic of Korea is the top region with the highest average of completion rates in adolescents. The box-plot for this region is very close to 100% average completion rates. The small size of this box-plot also represents the minor variability in this average statistic value for this region, meaning that almost all individuals' complete upper secondary education. For all regions, the range stays between around 80% - 100% for completion rate percentages. Each individual box-plot for the region represents the quartile range going from 25th percentiles to 75th percentiles. The line in each boxplot represents the median and the whiskers (the lines connected to each side of the box) represent the minimum and maximum values. According to how this boxplot outputted, there are no outliers from this data.
 
-On the other hand, regions such as North Macedonia and Chile have the lowest completion rates. Their large sizes indicate a major variability in the averages for these regions meaning that the completion rates are not consistent with the long whiskers for the boxes. The median for these boxes ranging between 83% to 86% are lower than all other regions with narrower boxes as well. 
+On the other hand, regions such as North Macedonia and Chile have the lowest completion rates. Their large sizes indicate a major variability in the averages for these regions meaning that the completion rates are not consistent with the long whiskers for the boxes. The median for these boxes ranging between 83% to 86% are lower than all other regions with narrower boxes as well.
 
 #### Net Attendance Rates
 
@@ -235,7 +235,7 @@ ggplot(filtered_data, aes(x = Year,
 
 #### Out of School Rates
 
-Additionally, out of school rates are another enrollment statistic that was significant to the 'Learning and Skills' dataset. It is layed out in the CSV file under the indicator column as "ED_ROFST_L2: Out-of-school rate for adolescents of lower secondary school age." With our question in mind that explores the global and regional trends in secondary schools enrollment rates, 
+Additionally, out of school rates are another enrollment statistic that was significant to the 'Learning and Skills' dataset. It is layed out in the CSV file under the indicator column as "ED_ROFST_L2: Out-of-school rate for adolescents of lower secondary school age." With our question in mind that explores the global and regional trends in secondary schools enrollment rates,
 
 ```{r}
 
@@ -269,7 +269,7 @@ ggplot(filtered_data, aes(x = REF_AREA.Geographic.area,
   theme_minimal()
 ```
 
-#### Gender Disparities 
+#### Gender Disparities
 
 The following grouped bar plot highlights important trends in the data according to the net attendance rate which was another significant value under the indicator column in the 'Learning and Skills' dataset. This visualization provides a comparison between the gender disparities in lower secondary school enrollment rates ranging across multiple regions globally in 2022. The following plot also highlights areas where gender gaps would take place and where there has been progress towards achieving parity with both genders.
 
@@ -312,19 +312,120 @@ From the looks of this visualization output, the enrollment rates for females an
 
 # Results
 
-To explore the research questions, we will use a hypothesis test.
+Here is summary of the statistics including the mean, standard deviation, minimum, and maximum values.
 
-## Assumptions
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
 
-## Boot Strapping Ratio
+# Import UNICEF csv file
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
+
+summary_stats <- unicef_data %>%
+  filter(INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age") %>%
+  group_by(REF_AREA.Geographic.area, 
+           TIME_PERIOD.Time.period) %>%
+  summarise(
+    Mean = mean(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    SD = sd(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    Min = min(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    Max = max(OBS_VALUE.Observation.Value, na.rm = TRUE)
+  )
+
+print(summary_stats)
+```
+
+Trends include ...
+
+# Assumptions
+
+The 'Learning and Skills' dataset does not provide sufficient data to go through with hypothesis testing including a paired t-test for the first research question, Pearson's Correlation for the second research question, and a Two-Sample t-test for the third research question, so we are implementing standard visualizations to effectively communicate the trends and disparities in the enrollment rates.
+
+**Research Question 1: What are the global and regional trends in secondary schools' enrollment rates over the past 10 years?**
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+
+# Import UNICEF csv file
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
+
+ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net attendance rate for youth of upper secondary school age"),
+       aes(x = TIME_PERIOD.Time.period, 
+           y = OBS_VALUE.Observation.Value, 
+           color = REF_AREA.Geographic.area)) +
+  geom_line() +
+  labs(title = "Trends in Enrollment Rates Over Time", 
+       x = "Year", 
+       y = "Enrollment Rate Percentage") +
+  theme_minimal()
+```
+
+**Research Question 2: How do socio-economic factors correlate with individuals' access to quality education and development?**
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+
+# Import UNICEF csv file
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
+
+ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age" & TIME_PERIOD.Time.period == 2022),
+       aes(x = REF_AREA.Geographic.area, 
+           y = OBS_VALUE.Observation.Value, 
+           fill = SEX.Sex)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  coord_flip() +
+  labs(title = "Enrollment Rates sorted by Region and Gender in 2022", 
+       x = "Region", 
+       y = "Enrollment Rate Percentage") +
+  theme_minimal()
+```
+
+This represents enrollment rates sorted by the Region and Gender in the year 2022. The enrollment rates appear balanced globally.
+
+**Research Question 3: How do gender disparities affect individuals' access to secondary education, and in what ways have these disparities changed over the course of 10 years?**
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+
+# Import UNICEF csv file
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
+
+# Create Box Plot
+ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net attendance rate for youth of upper secondary school age" & TIME_PERIOD.Time.period == 2022),
+       aes(x = SEX.Sex, 
+           y = OBS_VALUE.Observation.Value, 
+           fill = SEX.Sex)) +
+  geom_boxplot() +
+  labs(title = "Gender Disparities in Enrollment Rates (2022)", 
+       x = "Gender", 
+       y = "Enrollment Rate Percentage") +
+  theme_minimal()
+```
+
+This represents the gender disparities in the 2022 enrollment rates. The average enrollment rates appear to be slightly higher for males than for females which can indicate some potential gender disparities, but not significantly.
 
 # Discussion
+
+From the overall results of this report, we can fully analyze the global and regional trends in the **'Learning and Skills'** dataset in the secondary school enrollment rates. We can also fully analyze the gender disparities in the dataset in terms of access to education. While the global enrollment rates are showing improvement in the regions, there are significant gaps in regions such as **West and Central Africa**. Regions including **East Asia and the Pacific** and **Latin America** have shown high enrollment rates with boxplots having low variability and gender gaps being low, while regions such as **Sub-Saharian Afica** show the opposite. In certain regions, it was clear that male enrollment rates were found to be slightly higher in a global sense while having more variability in the female rates.
+
+Based on our findings, it is recommended to ...
 
 This research aims to provide evidence-based insights into the factors influencing global education and skill acquisition. By highlighting trends, disparities, and socio-economic relationships, the study will contribute to the discourse on equitable access to education.
 
 # References
 
 United Nations Children’s Fund. (n.d.). Data Explorer: Global Dataflow. UNICEF. Retrieved December 16, 2024, from https://data.unicef.org/resources/data_explorer/unicef_f/?ag=UNICEF&df=GLOBAL_DATAFLOW
+
+Best, D. J., & Roberts, D. E. (1975). Algorithm AS 89: The upper tail probabilities of Spearman's. Applied Statistics, 24(3), 377–379. https://doi.org/10.2307/2347111
+
+Hollander, M., & Wolfe, D. A. (1973). Nonparametric statistical methods (pp. 185–194). John Wiley & Sons.
 
 # Code Appendix
 
