@@ -51,7 +51,9 @@ We will first present the provenance of the data. Then, how it aligns with the F
 
 ## Provenance
 
-The dataset used for this analysis, the 'Learning and Skills' dataset from UNICEF, explores the global educational indicators ranging from 2016 to 2023. The indicators integrated include the percentage of children of lower secondary school age attending lower secondary school or higher, the percentage of children of upper secondary school age attending upper secondary school or higher
+The dataset used for this analysis, the 'Learning and Skills' dataset from UNICEF [^1], explores the global educational indicators ranging from 2016 to 2023. The indicators integrated include the percentage of children of lower secondary school age attending lower secondary school or higher, the percentage of children of upper secondary school age attending upper secondary school or higher
+
+[^1]: United Nations Children's Fund, UNICEF Data Warehouse, UNICEF, June 2022. https://data.unicef.org/resources/data_explorer/unicef_f/?ag=UNICEF&df=GLOBAL_DATAFLOW&ver=1.0&dq=.ED_ANAR_L3+ED_ANAR_L2+ED_ROFST_L3+ED_CR_L2+ED_CR_L3+ED_ROFST_L2..&startPeriod=2016&endPeriod=2023
 
 We obtained the data from UNICEF which is the United Nations Children's Fund. It is a UN agency that is responsible for providing assistance to children worldwide pertaining humanitarian and developmental factors.
 
@@ -129,27 +131,30 @@ Here is a summary table that provides an overview of the observation values in t
 #| lst-cap: "Code Chunk for Making Figure 1"
 
 #Load necessary libraries
-library(dplyr)
-library(kableExtra)
-library(knitr)
+library(dplyr) #data manipulation
+library(kableExtra) #table formats
+library(knitr) #Rmarkdown
 
-#Import UNICEF csv file
+#Import UNICEF csv file.
 unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
 
-unicef_data %>%
-  group_by(REF_AREA.Geographic.area) %>%
+# Summary Statistics: Groups by geographic area.
+summary_stats <- unicef_data %>%
+  group_by(geographic_area = REF_AREA.Geographic.area) %>%
   summarise(
     mean_value = mean(OBS_VALUE.Observation.Value, na.rm = TRUE),
     minimum_value = min(OBS_VALUE.Observation.Value, na.rm = TRUE),
     median_value = median(OBS_VALUE.Observation.Value, na.rm = TRUE),
     maximum_value = max(OBS_VALUE.Observation.Value, na.rm = TRUE),
-    count = n()
-  ) %>%
-  kable(
-    caption = "Global Dataflow UNICEF",
-    col.names = c('Geographic Area', 'Mean', 'Minimum', 'Median', 'Maximum', 'Count')
-    ) #Format the Summary Statistics in a Table using Kable Styling
-
+    observation_count = n()
+  ) 
+  
+# Outputs Formatted Summary Table with Kable Styling tools
+kable(
+  summary_stats,
+  caption = "Global Dataflow UNICEF",
+  col.names = c('Region', 'Mean', 'Minimum', 'Median', 'Maximum', 'Count')
+  )
 
 ```
 
@@ -170,26 +175,20 @@ Furthermore, the completion rates of adolescents were one of the indicators that
 #| lst-label: lst-figure2
 #| lst-cap: "Code Chunk for Making Figure 1"
 
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-
-# Filtered data for Completion Rate Indicator
+# Filtered data for Completion Rate Indicator in Upper Secondary Education
 filtered_completion_data <- unicef_data %>%
   filter(
     INDICATOR.Indicator == "ED_CR_L3: Completion rate for youth of upper secondary education school age",
-    !is.na(OBS_VALUE.Observation.Value)) %>% # Remove missing values
-  
-  mutate(
-    OBSERVATION_VALUE = as.numeric(OBS_VALUE.Observation.Value) 
-  )
+    !is.na(OBS_VALUE.Observation.Value)
+    ) %>% # Remove missing values
+  mutate(observation_value = as.numeric(OBS_VALUE.Observation.Value))
 
 # Filter for the Top 10 Regions by the average Completion Rate of Adolescents
 top_ten_regions <- filtered_completion_data %>%
-  group_by(REF_AREA.Geographic.area) %>%
-  summarise(mean_value = mean(OBSERVATION_VALUE, na.rm = TRUE)) %>%
+  group_by(geographic_area = REF_AREA.Geographic.area) %>%
+  summarise(mean_value = mean(observation_value, na.rm = TRUE)) %>%
   top_n(10, mean_value) %>%
-  pull(REF_AREA.Geographic.area)
+  pull(geographic_area)
 
 # Filter for top regions
 top_ten_filtered_data <- filtered_completion_data %>%
@@ -197,8 +196,8 @@ top_ten_filtered_data <- filtered_completion_data %>%
 
 # Create the boxplot
 ggplot(top_ten_filtered_data, 
-       aes(x = reorder(REF_AREA.Geographic.area, OBSERVATION_VALUE, mean), 
-           y = OBSERVATION_VALUE)) +
+       aes(x = reorder(REF_AREA.Geographic.area, observation_value, FUN = mean), 
+           y = observation_value)) +
   geom_boxplot(fill = "skyblue", alpha = 0.7) +
   coord_flip() +
   labs(
@@ -227,9 +226,7 @@ On the other hand, regions such as North Macedonia and Chile have the lowest com
 #| lst-cap: "Code Chunk for Making Figure 1"
 
 # Load necessary libraries
-library(dplyr)
 library(ggplot2)
-library(kableExtra)
 
 # Filter for lower secondary school with adolescents
 filtered_netattend_data <- unicef_data %>%
@@ -275,26 +272,33 @@ Additionally, out of school rates are another enrollment statistic that was sign
 #| lst-label: lst-figure2
 #| lst-cap: "Code Chunk for Making Figure 1"
 
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-
-# Filter based on Out of School Rates
+# Filter by the Out of School Rates
 filtered_OOS_data <- unicef_data %>%
-  filter(INDICATOR.Indicator == "ED_ROFST_L2: Out-of-school rate for adolescents of lower secondary school age",
+  filter(INDICATOR.Indicator == "ED_ROFST_L3: Out-of-school rate for youth of upper secondary school age",
          !is.na(OBS_VALUE.Observation.Value)) %>%
-  mutate(
-    OBS_VALUE = as.numeric(OBS_VALUE.Observation.Value)
-  )
+  group_by(REF_AREA.Geographic.area) %>%
+  summarise(
+    rate = sum(OBS_VALUE.Observation.Value, na.rm = TRUE)) %>%
+  top_n(10, rate) %>% #Filters for top 10 regions
+  pull(REF_AREA.Geographic.area)
 
-# Create a Stacked Bar Chart
-ggplot(filtered_OOS_data, aes(x = REF_AREA.Geographic.area, 
-                          y = OBS_VALUE, 
-                          fill = SEX.Sex)) +
-  geom_bar(stat = "identity", position = "stack") +
+# Filter the data for the Top 10 Regions
+top_regions_data <- unicef_data %>%
+  filter(REF_AREA.Geographic.area %in% filtered_OOS_data,
+         INDICATOR.Indicator == "ED_ROFST_L3: Out-of-school rate for youth of upper secondary school age",
+         !is.na(OBS_VALUE.Observation.Value)) %>%
+  mutate(REF_AREA.Geographic.area = reorder(REF_AREA.Geographic.area, 
+                                            -OBS_VALUE.Observation.Value))
+
+# Create stacked bar chart by Geographic Area and Observation Values
+ggplot(top_regions_data, aes(x = REF_AREA.Geographic.area,
+                             y = OBS_VALUE.Observation.Value,
+                             fill = SEX.Sex
+                             )) +
+  geom_bar(stat = "identity", position = "dodge") +
   coord_flip() +
   labs(
-    title = "Out-of-School Rates by Region and Gender (2022)",
+    title = "Top 10 Regions by Out-of-School Rates (2022)",
     x = "Region",
     y = "Out-of-School Rate Percentage",
     fill = "Gender"
@@ -317,20 +321,17 @@ The following grouped bar plot highlights important trends in the data according
 #| lst-label: lst-figure2
 #| lst-cap: "Code Chunk for Making Figure 1"
 
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-
+# Filter for net attendance rates in 2022
 filtered_disparities_data <- unicef_data %>%
   filter(
     INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age",
     TIME_PERIOD.Time.period == 2022,
-    !is.na(OBS_VALUE.Observation.Value)) %>%
+    !is.na(OBS_VALUE.Observation.Value)) %>% #Removes NA values
   
   mutate(
     OBS_VALUE = as.numeric(OBS_VALUE.Observation.Value))
 
-# Plot gender gaps as grouped bar chart
+# Create grouped bar chart
 ggplot(filtered_disparities_data, aes(x = REF_AREA.Geographic.area, 
                        y = OBS_VALUE, 
                        fill = SEX.Sex)) +
@@ -364,19 +365,17 @@ Here is summary of the statistics including the mean, standard deviation, minimu
 #| lst-label: lst-figure2
 #| lst-cap: "Code Chunk for Making Figure 1"
 
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-
+# Filter by Net Attendance Rates
 unicef_data %>%
   filter(INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age") %>%
   group_by(REF_AREA.Geographic.area, 
-           TIME_PERIOD.Time.period) %>%
+           TIME_PERIOD.Time.period) %>% #Grouped statistics by Geographic Area and Time Periods
   summarise(
     Mean = mean(OBS_VALUE.Observation.Value, na.rm = TRUE),
-    SD = sd(OBS_VALUE.Observation.Value, na.rm = TRUE),
-    Min = min(OBS_VALUE.Observation.Value, na.rm = TRUE),
-    Max = max(OBS_VALUE.Observation.Value, na.rm = TRUE)
+    STD = sd(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    Minimum = min(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    Maximum = max(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    .groups = "keep"
   )
 
 ```
@@ -404,7 +403,10 @@ The 'Learning and Skills' dataset does not provide sufficient data to go through
 library(dplyr)
 library(ggplot2)
 
-ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net attendance rate for youth of upper secondary school age"),
+# Create Line Plot by Time Periods and Observation Values
+ggplot(unicef_data %>% 
+         # Filters for Net Attendance Rates
+         filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net attendance rate for youth of upper secondary school age"),
        aes(x = TIME_PERIOD.Time.period, 
            y = OBS_VALUE.Observation.Value, 
            color = REF_AREA.Geographic.area)) +
@@ -428,10 +430,7 @@ ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net a
 #| lst-label: lst-figure2
 #| lst-cap: "Code Chunk for Making Figure 1"
 
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-
+# Filter data by Net Attendance Rates AND Create Bar Chart
 ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age" & TIME_PERIOD.Time.period == 2022),
        aes(x = REF_AREA.Geographic.area, 
            y = OBS_VALUE.Observation.Value, 
@@ -459,11 +458,7 @@ This represents enrollment rates sorted by the Region and Gender in the year 202
 #| lst-label: lst-figure2
 #| lst-cap: "Code Chunk for Making Figure 1"
 
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-
-# Create Box Plot
+# Create Box Plot filtered by Net Attendance Rates
 ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net attendance rate for youth of upper secondary school age" & TIME_PERIOD.Time.period == 2022),
        aes(x = SEX.Sex, 
            y = OBS_VALUE.Observation.Value, 
@@ -487,7 +482,7 @@ This research aims to provide evidence-based insights into the factors influenci
 
 # References
 
-United Nations Children’s Fund. (n.d.). Data Explorer: Global Dataflow. UNICEF. Retrieved December 16, 2024, from https://data.unicef.org/resources/data_explorer/unicef_f/?ag=UNICEF&df=GLOBAL_DATAFLOW
+United Nations Children's Fund, UNICEF Data Warehouse, UNICEF, June 2022. https://data.unicef.org/resources/data_explorer/unicef_f/?ag=UNICEF&df=GLOBAL_DATAFLOW&ver=1.0&dq=.ED_ANAR_L3+ED_ANAR_L2+ED_ROFST_L3+ED_CR_L2+ED_CR_L3+ED_ROFST_L2..&startPeriod=2016&endPeriod=2023
 
 Best, D. J., & Roberts, D. E. (1975). Algorithm AS 89: The upper tail probabilities of Spearman's. Applied Statistics, 24(3), 377–379. https://doi.org/10.2307/2347111
 
