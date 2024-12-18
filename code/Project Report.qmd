@@ -23,9 +23,9 @@ This research question explores patterns globally and regionally in terms of acc
 
 This research question explores the patterns associated with socio-economic factors, and how they are connected with access to quality education and development. It goes into depth about which socio-economic factors impact this access the most and
 
-3.  How does individuals' access to online learning tools differentiate according to the region and class levels, and what impact does this have on learning?
+3.  How do gender disparities affect individuals' access to secondary education, and in what ways have these disparities changed over the course of 10 years ranging across different regions?
 
-This research question explores the analysis of individuals' access to online learning tools as it pertains to equity in learning and outcomes.
+This research question explores the effects of gender disparities in secondary education. It is an important question to implement in our research because it can bring potential patterns in these disparities and can give a comparison between enrollment rates and completion rates in schooling. 
 
 We will first present the provenance of the data. Then, how it aligns with the FAIR and/or CARE principles. Then we will present the methodology of the data and the analysis attributes. After, we will explore the data visualizations and the results. Finally, we will close up the report with a discussion of our findings.
 
@@ -43,23 +43,23 @@ We obtained the data from UNICEF which is the United Nations Children's Fund. It
 
 The dataset and analysis will adhere to the FAIR (Findable, Accessible, Interoperable, Reusable) principles to ensure transparency and reproducibility. Data sources and workflows will be documented and made available in open formats to facilitate future research. Additionally, the CARE (Collective benefit, Authority to control, Responsibility, Ethics) principles will guide the ethical use of data, particularly in ensuring respect for community rights and promoting equity in the dissemination of insights.
 
-- **Findability**: The 'Learning and Skills' dataset can be accessed easily on the UNICEF Data explorer website under 'Datasets'.
+-   **Findability**: The 'Learning and Skills' dataset can be accessed easily on the UNICEF Data explorer website under 'Datasets'.
 
 **URL**: [UNICEF Data](https://data.unicef.org/resources/data_explorer/unicef_f/?ag=UNICEF&df=GLOBAL_DATAFLOW&ver=1.0&dq=.ED_ANAR_L3+ED_ANAR_L2+ED_ROFST_L3+ED_CR_L2+ED_CR_L3+ED_ROFST_L2..&startPeriod=2016&endPeriod=2023)
 
-- **Accessibility**: The 'Learning and Skills' dataset is publicly available as a CSV file and an Excel file.
+-   **Accessibility**: The 'Learning and Skills' dataset is publicly available as a CSV file and an Excel file.
 
-- **Interoperability**: The 'Learning and Skills' dataset uses general formatting techniques and naming which makes it comparable using data analysis tools.
+-   **Interoperability**: The 'Learning and Skills' dataset uses general formatting techniques and naming which makes it comparable using data analysis tools.
 
-- **Reusability**: The 'Learning and Skills' dataset provides enough references and documented resources for similar research.
+-   **Reusability**: The 'Learning and Skills' dataset provides enough references and documented resources for similar research.
 
-- **Collective benefit**: Insights from the 'Learning and Skills' dataset are shared for improvement purposes.
+-   **Collective benefit**: Insights from the 'Learning and Skills' dataset are shared for improvement purposes.
 
-- **Authority to Control**: The 'Learning and Skills' dataset remains respectable for global and regional educational goals.
+-   **Authority to Control**: The 'Learning and Skills' dataset remains respectable for global and regional educational goals.
 
-- **Responsibility**: The analysis of the 'Learning and Skills' dataset is conducted ethically and does not use the dataset and sensitive data for unethical reasons.
+-   **Responsibility**: The analysis of the 'Learning and Skills' dataset is conducted ethically and does not use the dataset and sensitive data for unethical reasons.
 
-- **Ethics**: This research on the 'Learning and Skills' dataset focuses on equality to benefit communities who are at a disadvantage.
+-   **Ethics**: This research on the 'Learning and Skills' dataset focuses on equality to benefit communities who are at a disadvantage.
 
 # Methodology
 
@@ -75,7 +75,7 @@ Overall, we put our focus on the following:
 
 -   **Global and Regional Enrollment Trends**
 -   **Completion Rates**
--   **The Effects of Socio-Economic Factors and Digital Tools**
+-   **The Effects of Socio-Economic Factors and Gender Disparities**
 
 ## Analysis Attributes
 
@@ -87,7 +87,7 @@ Overall, we put our focus on the following:
 
 **Socio-Economic Correlations**: Relationships between education metrics and socio-economic factors.
 
-**Digital Access**: Availability and impact of digital learning tools.
+**Indicator Trends**: Examines the trends for indicators including attendance rates and completion rates regarding enrollment statistics.
 
 # Data Exploration
 
@@ -99,15 +99,18 @@ As we explore the structure of the UNICEF 'Learning and Skills' Dataset, the foc
 
 Here is a summary table that provides an overview of the observation values in the dataset according to the geographic region. The table includes the mean, minimum, median, maximum, and count for the observation values while removing null values.
 
-```{r load-packages, echo = false, message = false, warning = false}
+```{r}
 
 #Load necessary libraries
 library(dplyr)
 library(kableExtra)
 
+unicef_data$OBS_VALUE.Observation.Value <- as.numeric(unicef_data$OBS_VALUE.Observation.Value)
+
 #Import UNICEF csv file
 unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
 
+#unicef_data <- read_csv("/Users/giannadelorenzo/Documents/GitHub/Sec.-3-s-Activity-10/Course Project/data/UNICEF Dataset.csv")
 #Summary Statistics
 unicef_summary_table <- unicef_data %>%
   group_by(REF_AREA.Geographic.area) %>%
@@ -129,14 +132,13 @@ knitr::kable(
 
 ```
 
-### Completion Rates
+### Enrollment Rates
+
+#### Completion Rates
 
 Furthermore, the completion rates of adolescents were one of the indicators that stood out to us. Here is a boxplot that displays the top 10 regions by the average completion rates ranging from the best to the worst regions.
 
-```{r, , echo = false, message = false, warning = false}
-#| label: load-packages
-#| include: false
-#| echo: false
+```{r}
 
 # Load necessary libraries
 library(dplyr)
@@ -181,13 +183,13 @@ ggplot(top_ten_filtered_data,
 
 ```
 
-From this box-plot, it can be seen that the Democratic People's Republic of Korea is the top region with the highest average of completion rates in adolescents. The box-plot for this region is very close to 100% average completion rates. The small size of this box-plot also represents the minor variability in this average statistic value for this region, meaning that almost all individuals' complete upper secondary education.
+From this box-plot, it can be seen that the Democratic People's Republic of Korea is the top region with the highest average of completion rates in adolescents. The box-plot for this region is very close to 100% average completion rates. The small size of this box-plot also represents the minor variability in this average statistic value for this region, meaning that almost all individuals' complete upper secondary education. For all regions, the range stays between around 80% - 100% for completion rate percentages. Each individual box-plot for the region represents the quartile range going from 25th percentiles to 75th percentiles. The line in each boxplot represents the median and the whiskers (the lines connected to each side of the box) represent the minimum and maximum values. According to how this boxplot outputted, there are no outliers from this data. 
 
-On the other hand, regions such as North Macedonia and Chile have the lowest completion rates. Their large sizes indicate a major variability in the averages for these regions meaning ...
+On the other hand, regions such as North Macedonia and Chile have the lowest completion rates. Their large sizes indicate a major variability in the averages for these regions meaning that the completion rates are not consistent with the long whiskers for the boxes. The median for these boxes ranging between 83% to 86% are lower than all other regions with narrower boxes as well. 
 
-### Net Attendance Rates
+#### Net Attendance Rates
 
-```{r , echo = false, message = false, warning = false}
+```{r}
 #| label: load-packages
 #| include: false
 #| echo: false
@@ -231,9 +233,11 @@ ggplot(filtered_data, aes(x = Year,
 
 ```
 
-### Out of School Rates
+#### Out of School Rates
 
-```{r, echo = false, message = false, warning = false}
+Additionally, out of school rates are another enrollment statistic that was significant to the 'Learning and Skills' dataset. It is layed out in the CSV file under the indicator column as "ED_ROFST_L2: Out-of-school rate for adolescents of lower secondary school age." With our question in mind that explores the global and regional trends in secondary schools enrollment rates, 
+
+```{r}
 
 # Load necessary libraries
 library(dplyr)
@@ -242,41 +246,79 @@ library(ggplot2)
 # Import UNICEF csv file
 unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
 
-# Filter based on 
-filtered_unicef_data <- unicef_data %>%
+# Filter based on Out of School Rates
+filtered_data <- unicef_data %>%
   filter(INDICATOR.Indicator == "ED_ROFST_L2: Out-of-school rate for adolescents of lower secondary school age",
          !is.na(OBS_VALUE.Observation.Value)) %>%
-  
   mutate(
-    Year = as.numeric(TIME_PERIOD.Time.period),
-    Out_of_School_Rate = as.numeric(OBS_VALUE.Observation.Value)
+    OBS_VALUE = as.numeric(OBS_VALUE.Observation.Value)
   )
 
-# Create the Bar Plot
-ggplot(filtered_unicef_data, aes(x = REF_AREA.Geographic.area, 
-                                 y = Out_of_School_Rate, 
-                                 fill = SEX.Sex)) +
-  
-  geom_bar(stat = "identity", position = "dodge") +
+# Create a Stacked Bar Chart
+ggplot(filtered_data, aes(x = REF_AREA.Geographic.area, 
+                          y = OBS_VALUE, 
+                          fill = SEX.Sex)) +
+  geom_bar(stat = "identity", position = "stack") +
+  coord_flip() +
   labs(
-    title = "Out-of-School Rates sorted by Region and Gender",
+    title = "Out-of-School Rates by Region and Gender (2022)",
     x = "Region",
     y = "Out-of-School Rate Percentage",
     fill = "Gender"
   ) +
-  theme_minimal() +
-  coord_flip()
+  theme_minimal()
 ```
 
+#### Gender Disparities 
+
+The following grouped bar plot highlights important trends in the data according to the net attendance rate which was another significant value under the indicator column in the 'Learning and Skills' dataset. This visualization provides a comparison between the gender disparities in lower secondary school enrollment rates ranging across multiple regions globally in 2022. The following plot also highlights areas where gender gaps would take place and where there has been progress towards achieving parity with both genders.
+
+```{r}
+
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+
+# Import UNICEF csv file
+unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
+
+filtered_unicef_data <- unicef_data %>%
+  filter(
+    INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age",
+    TIME_PERIOD.Time.period == 2022,
+    !is.na(OBS_VALUE.Observation.Value)) %>%
+  
+  mutate(
+    OBS_VALUE = as.numeric(OBS_VALUE.Observation.Value))
+
+# Plot gender gaps as grouped bar chart
+ggplot(filtered_unicef_data, aes(x = REF_AREA.Geographic.area, 
+                       y = OBS_VALUE, 
+                       fill = SEX.Sex)) +
+  
+  geom_bar(stat = "identity", position = "dodge") +
+  coord_flip() +
+  labs(
+    title = "Regional Comparison of Gender Gaps in Enrollment Rates in 2022",
+    x = "Region",
+    y = "Enrollment Rate Percentage",
+    fill = "Gender"
+  ) +
+  theme_minimal()
+
+```
+
+From the looks of this visualization output, the enrollment rates for females and males are close in range. This is suggesting to us that gender parity has been successfully achieved worldwide, although we cannot come to a clear conclusion when only looking at a visualization including a sample of 10 regions. The most significant differences between the enrollment rates according to the gender appears to be in regions including **East Asia and Pacific**, **Latin America and the Caribbean**, and **Eastern and Southern Africa** where the gender gaps are close displaying near-equal enrollment rates for females and males. This output indicate that the regions with closer gender gaps may be targeting interventions or implementing broader societal shifts towards gender equality.
+
 # Results
+
+To explore the research questions, we will use a hypothesis test.
 
 ## Assumptions
 
 ## Boot Strapping Ratio
 
 # Discussion
-
-# Conclusion
 
 This research aims to provide evidence-based insights into the factors influencing global education and skill acquisition. By highlighting trends, disparities, and socio-economic relationships, the study will contribute to the discourse on equitable access to education.
 
