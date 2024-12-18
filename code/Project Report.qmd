@@ -5,6 +5,11 @@ format: pdf
 editor: visual
 bibliography: references.bib  
 csl: apa7.csl  
+execute:
+  echo: FALSE
+  warning: FALSE
+  cache: TRUE
+  message: FALSE
 ---
 
 # Global Data - Learning and Skills
@@ -99,7 +104,7 @@ As we explore the structure of the UNICEF 'Learning and Skills' Dataset, the foc
 
 Here is a summary table that provides an overview of the observation values in the dataset according to the geographic region. The table includes the mean, minimum, median, maximum, and count for the observation values while removing null values.
 
-```{r}
+```{r echo=FALSE}
 
 #Load necessary libraries
 library(dplyr)
@@ -121,13 +126,14 @@ unicef_summary_table <- unicef_data %>%
   )
 
 #Format the Summary Statistics in a Table using Kable Styling
-knitr::kable(
+summary_statistics <- knitr::kable(
   unicef_summary_table, 
   format = "latex", 
   caption = "Global Dataflow UNICEF", 
   col.names = c('Geographic Area', 'Mean', 'Minimum', 'Median', 'Maximum', 'Count')
 )
 
+print(summary_statistics)
 ```
 
 ### Enrollment Rates
@@ -136,7 +142,7 @@ knitr::kable(
 
 Furthermore, the completion rates of adolescents were one of the indicators that stood out to us. Here is a boxplot that displays the top 10 regions by the average completion rates ranging from the best to the worst regions.
 
-```{r}
+```{r echo=FALSE}
 
 # Load necessary libraries
 library(dplyr)
@@ -167,7 +173,7 @@ top_ten_filtered_data <- filtered_unicef_data %>%
   filter(REF_AREA.Geographic.area %in% top_ten_regions)
 
 # Create the boxplot
-ggplot(top_ten_filtered_data, 
+box_plot <- ggplot(top_ten_filtered_data, 
        aes(x = reorder(REF_AREA.Geographic.area, OBSERVATION_VALUE, mean), 
            y = OBSERVATION_VALUE)) +
   geom_boxplot(fill = "skyblue", alpha = 0.7) +
@@ -179,6 +185,7 @@ ggplot(top_ten_filtered_data,
   ) +
   theme_minimal(base_size = 12)
 
+print(box_plot)
 ```
 
 From this box-plot, it can be seen that the Democratic People's Republic of Korea is the top region with the highest average of completion rates in adolescents. The box-plot for this region is very close to 100% average completion rates. The small size of this box-plot also represents the minor variability in this average statistic value for this region, meaning that almost all individuals' complete upper secondary education. For all regions, the range stays between around 80% - 100% for completion rate percentages. Each individual box-plot for the region represents the quartile range going from 25th percentiles to 75th percentiles. The line in each boxplot represents the median and the whiskers (the lines connected to each side of the box) represent the minimum and maximum values. According to how this boxplot outputted, there are no outliers from this data.
@@ -187,10 +194,7 @@ On the other hand, regions such as North Macedonia and Chile have the lowest com
 
 #### Net Attendance Rates
 
-```{r}
-#| label: load-packages
-#| include: false
-#| echo: false
+```{r echo=FALSE}
 
 # Load necessary libraries
 library(dplyr)
@@ -212,7 +216,7 @@ filtered_data <- unicef_data %>%
 
 
 # Create the Line Plot
-ggplot(filtered_data, aes(x = Year, 
+line_plot <- ggplot(filtered_data, aes(x = Year, 
                           y = Enrollment_Rate, 
                           color = Region)) +
   geom_line(size = 1) +
@@ -228,14 +232,14 @@ ggplot(filtered_data, aes(x = Year,
     legend.title = element_text(size = 10)
   )
 
-
+print(line_plot)
 ```
 
 #### Out of School Rates
 
 Additionally, out of school rates are another enrollment statistic that was significant to the 'Learning and Skills' dataset. It is layed out in the CSV file under the indicator column as "ED_ROFST_L2: Out-of-school rate for adolescents of lower secondary school age." With our question in mind that explores the global and regional trends in secondary schools enrollment rates,
 
-```{r}
+```{r echo=FALSE}
 
 # Load necessary libraries
 library(dplyr)
@@ -271,7 +275,7 @@ ggplot(filtered_data, aes(x = REF_AREA.Geographic.area,
 
 The following grouped bar plot highlights important trends in the data according to the net attendance rate which was another significant value under the indicator column in the 'Learning and Skills' dataset. This visualization provides a comparison between the gender disparities in lower secondary school enrollment rates ranging across multiple regions globally in 2022. The following plot also highlights areas where gender gaps would take place and where there has been progress towards achieving parity with both genders.
 
-```{r}
+```{r echo=FALSE}
 
 # Load necessary libraries
 library(dplyr)
@@ -312,7 +316,7 @@ From the looks of this visualization output, the enrollment rates for females an
 
 Here is summary of the statistics including the mean, standard deviation, minimum, and maximum values.
 
-```{r}
+```{r echo=FALSE}
 # Load necessary libraries
 library(dplyr)
 library(ggplot2)
@@ -342,7 +346,7 @@ The 'Learning and Skills' dataset does not provide sufficient data to go through
 
 **Research Question 1: What are the global and regional trends in secondary schools' enrollment rates over the past 10 years?**
 
-```{r}
+```{r echo=FALSE}
 # Load necessary libraries
 library(dplyr)
 library(ggplot2)
@@ -363,7 +367,7 @@ ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net a
 
 **Research Question 2: How do socio-economic factors correlate with individuals' access to quality education and development?**
 
-```{r}
+```{r echo=FALSE}
 # Load necessary libraries
 library(dplyr)
 library(ggplot2)
@@ -387,7 +391,7 @@ This represents enrollment rates sorted by the Region and Gender in the year 202
 
 **Research Question 3: How do gender disparities affect individuals' access to secondary education, and in what ways have these disparities changed over the course of 10 years?**
 
-```{r}
+```{r echo=FALSE}
 # Load necessary libraries
 library(dplyr)
 library(ggplot2)
