@@ -105,12 +105,10 @@ Here is a summary table that provides an overview of the observation values in t
 library(dplyr)
 library(kableExtra)
 
-unicef_data$OBS_VALUE.Observation.Value <- as.numeric(unicef_data$OBS_VALUE.Observation.Value)
 
 #Import UNICEF csv file
 unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
 
-#unicef_data <- read_csv("/Users/giannadelorenzo/Documents/GitHub/Sec.-3-s-Activity-10/Course Project/data/UNICEF Dataset.csv")
 #Summary Statistics
 unicef_summary_table <- unicef_data %>%
   group_by(REF_AREA.Geographic.area) %>%
