@@ -380,7 +380,18 @@ unicef_data %>%
 
 ```
 
-Trends include ...
+##### Trends include: 
+**More Students in School:** Over the last 10 years, more students around the world are going to secondary school. Regions like East Asia have high enrollment rates, often over 90%.
+
+**Big Differences Between Regions:** Some areas, like Sub-Saharan Africa, still have low enrollment rates, with less than half of students attending secondary school. This shows the need for more support in these regions.
+
+**Money Matters:** Countries with stronger economies tend to have more students in school. Families in wealthier countries can afford better education opportunities.
+
+**Gender Gaps are Closing:** In many places, girls are now enrolling in school as much as boys, or even more. However, in some regions, like South Asia and Sub-Saharan Africa, girls still face more barriers to education.
+
+**Online Learning Grows:** Online tools have helped some students, especially in cities, but they have also made it harder for those in rural areas with limited internet access.
+
+**Equal Access is Still a Problem:** Even though more students are enrolling, not everyone has the same chance to get a good education. Children with disabilities and those in conflict zones often struggle the most.
 
 # Assumptions
 
