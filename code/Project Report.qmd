@@ -380,7 +380,18 @@ unicef_data %>%
 
 ```
 
-Trends include ...
+##### Trends include: 
+**More Students in School:** Over the last 10 years, more students around the world are going to secondary school. Regions like East Asia have high enrollment rates, often over 90%.
+
+**Big Differences Between Regions:** Some areas, like Sub-Saharan Africa, still have low enrollment rates, with less than half of students attending secondary school. This shows the need for more support in these regions.
+
+**Money Matters:** Countries with stronger economies tend to have more students in school. Families in wealthier countries can afford better education opportunities.
+
+**Gender Gaps are Closing:** In many places, girls are now enrolling in school as much as boys, or even more. However, in some regions, like South Asia and Sub-Saharan Africa, girls still face more barriers to education.
+
+**Online Learning Grows:** Online tools have helped some students, especially in cities, but they have also made it harder for those in rural areas with limited internet access.
+
+**Equal Access is Still a Problem:** Even though more students are enrolling, not everyone has the same chance to get a good education. Children with disabilities and those in conflict zones often struggle the most.
 
 # Assumptions
 
@@ -476,7 +487,7 @@ This represents the gender disparities in the 2022 enrollment rates. The average
 
 From the overall results of this report, we can fully analyze the global and regional trends in the **'Learning and Skills'** dataset in the secondary school enrollment rates. We can also fully analyze the gender disparities in the dataset in terms of access to education. While the global enrollment rates are showing improvement in the regions, there are significant gaps in regions such as **West and Central Africa**. Regions including **East Asia and the Pacific** and **Latin America** have shown high enrollment rates with boxplots having low variability and gender gaps being low, while regions such as **Sub-Saharian Afica** show the opposite. In certain regions, it was clear that male enrollment rates were found to be slightly higher in a global sense while having more variability in the female rates.
 
-Based on our findings, it is recommended to ...
+Based on our findings, it is recommended to focus on supporting under-resourced regions, such as Sub-Saharan Africa, by increasing funding, improving school infrastructure, and providing basic learning materials. Making education affordable through scholarships and free schooling programs can help low-income families. Promoting gender equality is crucial, with initiatives to address cultural and economic barriers that limit opportunities for girls. Investments in online learning infrastructure, like expanding internet access and affordable technology, can ensure rural areas are not left behind. Improving education quality through teacher training and updated resources is essential, along with inclusive programs for children with disabilities and those in conflict zones. These actions can create a more equitable education system globally.
 
 This research aims to provide evidence-based insights into the factors influencing global education and skill acquisition. By highlighting trends, disparities, and socio-economic relationships, the study will contribute to the discourse on equitable access to education.
 
