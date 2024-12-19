@@ -135,14 +135,14 @@ library(dplyr) #data manipulation
 library(kableExtra) #table formats
 library(knitr) #Rmarkdown
 
-#Import UNICEF csv file.
+#Import UNICEF csv file. (Initial Definition for All Code)
 unicef_data <- read.csv(url("https://raw.githubusercontent.com/Stat184-Fall2024/Sec3_FP_GiannaDeLorenzo_SaraAlmansoori/refs/heads/main/data/UNICEF%20Dataset.csv"))
 
-# Summary Statistics: Groups by geographic area.
+# Summary Statistics grouping by Geographic Area.
 summary_stats <- unicef_data %>%
-  group_by(geographic_area = REF_AREA.Geographic.area) %>%
+  group_by(geographic_area = REF_AREA.Geographic.area) %>% #Groups by Region for De-Cluttered Visualization
   summarise(
-    mean_value = mean(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    mean_value = mean(OBS_VALUE.Observation.Value, na.rm = TRUE), 
     minimum_value = min(OBS_VALUE.Observation.Value, na.rm = TRUE),
     median_value = median(OBS_VALUE.Observation.Value, na.rm = TRUE),
     maximum_value = max(OBS_VALUE.Observation.Value, na.rm = TRUE),
@@ -153,7 +153,7 @@ summary_stats <- unicef_data %>%
 kable(
   summary_stats,
   caption = "Global Dataflow UNICEF",
-  col.names = c('Region', 'Mean', 'Minimum', 'Median', 'Maximum', 'Count')
+  col.names = c('Region', 'Mean', 'Minimum', 'Median', 'Maximum', 'Count') #Rename columns for Organization
   )
 
 ```
@@ -187,8 +187,8 @@ filtered_completion_data <- unicef_data %>%
 top_ten_regions <- filtered_completion_data %>%
   group_by(geographic_area = REF_AREA.Geographic.area) %>%
   summarise(mean_value = mean(observation_value, na.rm = TRUE)) %>%
-  top_n(10, mean_value) %>%
-  pull(geographic_area)
+  top_n(10, mean_value) %>% #Gets top 10 regions
+  pull(geographic_area) #Pulls the data about Regions
 
 # Filter for top regions
 top_ten_filtered_data <- filtered_completion_data %>%
@@ -196,16 +196,16 @@ top_ten_filtered_data <- filtered_completion_data %>%
 
 # Create the boxplot
 ggplot(top_ten_filtered_data, 
-       aes(x = reorder(REF_AREA.Geographic.area, observation_value, FUN = mean), 
+       aes(x = reorder(REF_AREA.Geographic.area, observation_value, FUN = mean), #Reorder the columns for best Box Plot Output
            y = observation_value)) +
-  geom_boxplot(fill = "skyblue", alpha = 0.7) +
-  coord_flip() +
+  geom_boxplot(fill = "skyblue", alpha = 0.7) + #Fills with color for readers and better sizing
+  coord_flip() + #Flips Vertically for Readability
   labs(
     title = "Top 10 Regions by Mean Completion Rate",
     x = "Region",
     y = "Completion Rate Percentage"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) #Changes size for organization
 ```
 
 From this box-plot, it can be seen that the Democratic People's Republic of Korea is the top region with the highest average of completion rates in adolescents. The box-plot for this region is very close to 100% average completion rates. The small size of this box-plot also represents the minor variability in this average statistic value for this region, meaning that almost all individuals' complete upper secondary education. For all regions, the range stays between around 80% - 100% for completion rate percentages. Each individual box-plot for the region represents the quartile range going from 25th percentiles to 75th percentiles. The line in each boxplot represents the median and the whiskers (the lines connected to each side of the box) represent the minimum and maximum values. According to how this boxplot outputted, there are no outliers from this data.
@@ -220,7 +220,7 @@ On the other hand, regions such as North Macedonia and Chile have the lowest com
 #| fig-pos: H
 #| fig-height: 5
 #| fig-width: 7
-#| fig-alt: "Table showing Observation Value Statistics"
+#| fig-alt: "Bar Plot showing Net Attendance Rates"
 #| aria-describedby: namesPlotLD
 #| lst-label: lst-figure2
 #| lst-cap: "Code Chunk for Making Figure 1"
@@ -234,27 +234,24 @@ filtered_netattend_data <- unicef_data %>%
          !is.na(OBS_VALUE.Observation.Value)) %>% # Remove missing values
   
   mutate(
-    Year = as.numeric(TIME_PERIOD.Time.period),
-    Enrollment_Rate = as.numeric(OBS_VALUE.Observation.Value),
-    Region = REF_AREA.Geographic.area)
+    Year = as.numeric(TIME_PERIOD.Time.period), #Get numerics from Time Period column
+    Enrollment_Rate = as.numeric(OBS_VALUE.Observation.Value), #Get numerics from Observation Value column
+    Region = REF_AREA.Geographic.area) #Rename Column for Organization
 
 
 # Create the Line Plot
 ggplot(filtered_netattend_data, aes(x = Year, 
-                          y = Enrollment_Rate, 
-                          color = Region)) +
-  geom_line(size = 1) +
+                                    y = Enrollment_Rate, 
+                                    color = Region)) +
+  geom_bar(stat = "identity", position = "dodge") + #Bar height gives accurate values and ensures Region bars are aside each other
+  coord_flip() + #Flips vertically for readability
   labs(
     title = "Global and Regional Trends in Secondary School Enrollment with Adolescents",
     x = "Year",
     y = "Enrollment Rate Percentage",
-    color = "Region"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom",
-    legend.title = element_text(size = 10)
-  )
+    fill = "Region"
+    ) +
+  theme_minimal()
 ```
 
 #### Out of School Rates
@@ -272,31 +269,31 @@ Additionally, out of school rates are another enrollment statistic that was sign
 #| lst-label: lst-figure2
 #| lst-cap: "Code Chunk for Making Figure 1"
 
-# Filter by the Out of School Rates
+# Performs data wrangling by filtering by the Out of School Rates
 filtered_OOS_data <- unicef_data %>%
   filter(INDICATOR.Indicator == "ED_ROFST_L3: Out-of-school rate for youth of upper secondary school age",
-         !is.na(OBS_VALUE.Observation.Value)) %>%
+         !is.na(OBS_VALUE.Observation.Value)) %>% #Removes missing values
   group_by(REF_AREA.Geographic.area) %>%
   summarise(
-    rate = sum(OBS_VALUE.Observation.Value, na.rm = TRUE)) %>%
+    rate = sum(OBS_VALUE.Observation.Value, na.rm = TRUE)) %>% #Gives the rate which is the sum of the observation values
   top_n(10, rate) %>% #Filters for top 10 regions
-  pull(REF_AREA.Geographic.area)
+  pull(REF_AREA.Geographic.area) #Pulls data about Regions
 
 # Filter the data for the Top 10 Regions
 top_regions_data <- unicef_data %>%
   filter(REF_AREA.Geographic.area %in% filtered_OOS_data,
          INDICATOR.Indicator == "ED_ROFST_L3: Out-of-school rate for youth of upper secondary school age",
-         !is.na(OBS_VALUE.Observation.Value)) %>%
+         !is.na(OBS_VALUE.Observation.Value)) %>% #Removes missing values
   mutate(REF_AREA.Geographic.area = reorder(REF_AREA.Geographic.area, 
-                                            -OBS_VALUE.Observation.Value))
+                                            -OBS_VALUE.Observation.Value)) #Organizes observation values in descending order and levels of Regions
 
 # Create stacked bar chart by Geographic Area and Observation Values
 ggplot(top_regions_data, aes(x = REF_AREA.Geographic.area,
                              y = OBS_VALUE.Observation.Value,
                              fill = SEX.Sex
                              )) +
-  geom_bar(stat = "identity", position = "dodge") +
-  coord_flip() +
+  geom_bar(stat = "identity", position = "dodge") + #Bar Heights contain accurate values and Gender bars are aside each other
+  coord_flip() + #Flips Vertically for readability
   labs(
     title = "Top 10 Regions by Out-of-School Rates (2022)",
     x = "Region",
@@ -326,18 +323,18 @@ filtered_disparities_data <- unicef_data %>%
   filter(
     INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age",
     TIME_PERIOD.Time.period == 2022,
-    !is.na(OBS_VALUE.Observation.Value)) %>% #Removes NA values
+    !is.na(OBS_VALUE.Observation.Value)) %>% #Removes missing values
   
   mutate(
-    OBS_VALUE = as.numeric(OBS_VALUE.Observation.Value))
+    OBS_VALUE = as.numeric(OBS_VALUE.Observation.Value)) #Gets numerics from observation value column
 
 # Create grouped bar chart
 ggplot(filtered_disparities_data, aes(x = REF_AREA.Geographic.area, 
                        y = OBS_VALUE, 
                        fill = SEX.Sex)) +
   
-  geom_bar(stat = "identity", position = "dodge") +
-  coord_flip() +
+  geom_bar(stat = "identity", position = "dodge") + #Bar Heights contain accurate values and Gender bars are aside each other
+  coord_flip() + #Flips Vertically for readability
   labs(
     title = "Regional Comparison of Gender Gaps in Enrollment Rates in 2022",
     x = "Region",
@@ -366,21 +363,41 @@ Here is summary of the statistics including the mean, standard deviation, minimu
 #| lst-cap: "Code Chunk for Making Figure 1"
 
 # Filter by Net Attendance Rates
-unicef_data %>%
+final_filtered_summary_table <- unicef_data %>%
   filter(INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age") %>%
   group_by(REF_AREA.Geographic.area, 
            TIME_PERIOD.Time.period) %>% #Grouped statistics by Geographic Area and Time Periods
   summarise(
-    Mean = mean(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    mean = mean(OBS_VALUE.Observation.Value, na.rm = TRUE),
     STD = sd(OBS_VALUE.Observation.Value, na.rm = TRUE),
-    Minimum = min(OBS_VALUE.Observation.Value, na.rm = TRUE),
-    Maximum = max(OBS_VALUE.Observation.Value, na.rm = TRUE),
-    .groups = "keep"
+    minimum = min(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    maximum = max(OBS_VALUE.Observation.Value, na.rm = TRUE),
+    .groups = "keep" #Keeps the Statistics in place with other prior summary table 
+  ) %>%
+  #Rounds each statistic to two digits for Organization of Data
+  mutate(
+    mean = round(mean, 2),
+    STD = round(STD, 2),
+    minimum = round(minimum, 2),
+    maximum = round(maximum, 2)
+  )
+
+#Kable Styling implemented for well-formatted table with summary statistics
+kable(
+  final_filtered_summary_table,
+  caption = "Final Summary Statistics",
+  col.names = c('Region', 
+                'Time Period', 
+                'Mean', 
+                'Standard Deviation', 
+                'Minimum', 
+                'Maximum') #Rename columns for Organization
   )
 
 ```
 
-##### Trends include: 
+##### Trends include:
+
 **More Students in School:** Over the last 10 years, more students around the world are going to secondary school. Regions like East Asia have high enrollment rates, often over 90%.
 
 **Big Differences Between Regions:** Some areas, like Sub-Saharan Africa, still have low enrollment rates, with less than half of students attending secondary school. This shows the need for more support in these regions.
@@ -420,8 +437,8 @@ ggplot(unicef_data %>%
          filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net attendance rate for youth of upper secondary school age"),
        aes(x = TIME_PERIOD.Time.period, 
            y = OBS_VALUE.Observation.Value, 
-           color = REF_AREA.Geographic.area)) +
-  geom_line() +
+           color = REF_AREA.Geographic.area)) + #Colors sorted by Region
+  geom_line() + #Displays as line plot
   labs(title = "Trends in Enrollment Rates Over Time", 
        x = "Year", 
        y = "Enrollment Rate Percentage") +
@@ -442,12 +459,12 @@ ggplot(unicef_data %>%
 #| lst-cap: "Code Chunk for Making Figure 1"
 
 # Filter data by Net Attendance Rates AND Create Bar Chart
-ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age" & TIME_PERIOD.Time.period == 2022),
+ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L2: Adjusted net attendance rate for adolescents of lower secondary school age" & TIME_PERIOD.Time.period == 2022), #Filter by Net Attendance Rates and Time Period being 2022
        aes(x = REF_AREA.Geographic.area, 
            y = OBS_VALUE.Observation.Value, 
            fill = SEX.Sex)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  coord_flip() +
+  geom_bar(stat = "identity", position = "dodge") + #Height of the bars give accurate results and Gender bars placed aside each other
+  coord_flip() + #Displayed Vertically for readability
   labs(title = "Enrollment Rates sorted by Region and Gender in 2022", 
        x = "Region", 
        y = "Enrollment Rate Percentage") +
@@ -470,12 +487,12 @@ This represents enrollment rates sorted by the Region and Gender in the year 202
 #| lst-cap: "Code Chunk for Making Figure 1"
 
 # Create Box Plot filtered by Net Attendance Rates
-ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net attendance rate for youth of upper secondary school age" & TIME_PERIOD.Time.period == 2022),
+ggplot(unicef_data %>% filter(INDICATOR.Indicator == "ED_ANAR_L3: Adjusted net attendance rate for youth of upper secondary school age" & TIME_PERIOD.Time.period == 2022), #Filtered by net attendance rates and time period being 2022
        aes(x = SEX.Sex, 
            y = OBS_VALUE.Observation.Value, 
            fill = SEX.Sex)) +
-  geom_boxplot() +
-  labs(title = "Gender Disparities in Enrollment Rates (2022)", 
+  geom_boxplot() + #Creates box plot
+  labs(title = "Gender Disparities in Enrollment Rates in 2022",  
        x = "Gender", 
        y = "Enrollment Rate Percentage") +
   theme_minimal()
